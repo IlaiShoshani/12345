@@ -38,7 +38,6 @@ public class DatabaseManager {
     }*/
     public void uploadQuestion(Question question)
     {
-        getLargestId();
         int id = Integer.parseInt(largestId);
         String customId = Integer.toString(id+1);
         db.collection("Question").document(customId).set(question)
@@ -55,7 +54,7 @@ public class DatabaseManager {
                     }
                 });
     }
-    public void getLargestId() {
+    public void getLargestIdAndThenUpload(Question question) {
 
         db.collection("Question")
                 .orderBy("id", Query.Direction.DESCENDING) // Assuming "id" is the field representing the ID
@@ -70,7 +69,10 @@ public class DatabaseManager {
                             Log.d("nave", "Largest ID: " + largestId);
                         } else {
                             Log.d("nave", "No documents found");
+                            largestId = "0";
+
                         }
+                        uploadQuestion(question);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

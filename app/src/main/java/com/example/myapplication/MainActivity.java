@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         DatabaseManager manager = new DatabaseManager();
-        manager.uploadQuestion(new Question("what is the name of ori?","ori", "nave", "peleg", "afsgqwerqbdsfrth", 10));
+        manager.getLargestIdAndThenUpload(new Question("what is the name of ori?","ori", "nave", "peleg", "afsgqwerqbdsfrth", 10));
         setContentView(R.layout.activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
