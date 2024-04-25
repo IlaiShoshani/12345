@@ -13,18 +13,18 @@ import com.google.firebase.firestore.*;
 public class DatabaseManager {
     private FirebaseFirestore db;
     static String largestId;
-    /*public Question loadQuestion(String id)
+    public Question loadQuestion(String id)
     {
-        db.collection("users")
+        db.collection("Question")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                if (document.getId() == id)
+                                if (Integer.parseInt(document.getId()) == Integer.parseInt(id))
                                 {
-
+                                    Object data = document.getData();
                                 }
                                 Log.d("nave", document.getId() + " => " + document.getData());
                             }
@@ -33,9 +33,9 @@ public class DatabaseManager {
                         }
                     }
                 });
+        return null;
 
-
-    }*/
+    }
     public void uploadQuestion(Question question)
     {
         int id = Integer.parseInt(largestId);
@@ -55,30 +55,23 @@ public class DatabaseManager {
                 });
     }
     public void getLargestIdAndThenUpload(Question question) {
-
         db.collection("Question")
-                .orderBy("id", Query.Direction.DESCENDING) // Assuming "id" is the field representing the ID
-                .limit(1)
                 .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if (!queryDocumentSnapshots.isEmpty()) {
-                            DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
-                            largestId = documentSnapshot.getString("id");
-                            Log.d("nave", "Largest ID: " + largestId);
-                        } else {
-                            Log.d("nave", "No documents found");
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
                             largestId = "0";
-
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if(Integer.parseInt(document.getId()) > Integer.parseInt(largestId)) {
+                                    largestId = document.getId();
+                                }
+                                Log.d("nave", document.getId() + " => " + document.getData());
+                            }
+                            uploadQuestion(question);
+                        } else {
+                            Log.w("nave", "Error getting documents.", task.getException());
                         }
-                        uploadQuestion(question);
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("nave", "Error getting documents", e);
                     }
                 });
     }
