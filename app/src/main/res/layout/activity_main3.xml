@@ -5,20 +5,61 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity2">
+    tools:context=".QuestionActivity">
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="387dp"
-        android:layout_height="290dp"
+        android:layout_width="396dp"
+        android:layout_height="183dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="401dp"
-        android:text="welcome"
-        android:textSize="96sp"
+        android:text="question"
+        android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/answerButton1"
+        android:layout_width="208dp"
+        android:layout_height="138dp"
+        android:layout_marginTop="154dp"
+        android:text="Button"
+        app:layout_constraintEnd_toStartOf="@+id/answerButton2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/answerButton2"
+        android:layout_width="208dp"
+        android:layout_height="138dp"
+        android:layout_marginTop="154dp"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/answerButton1"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/answerButton3"
+        android:layout_width="208dp"
+        android:layout_height="138dp"
+        android:text="Button"
+        app:layout_constraintEnd_toStartOf="@+id/answerButton4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/answerButton1" />
+
+    <Button
+        android:id="@+id/answerButton4"
+        android:layout_width="208dp"
+        android:layout_height="138dp"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/answerButton3"
+        app:layout_constraintTop_toBottomOf="@+id/answerButton2" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
