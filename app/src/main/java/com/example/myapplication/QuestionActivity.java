@@ -51,8 +51,7 @@ public class QuestionActivity extends AppCompatActivity {
         answers = new ArrayList<>();
         manager = new DatabaseManager();
         getLargestIdAndGenerateRandomQuestion();
-
-        setContentView(R.layout.activity_main);
+        
         correntAnswers = 0;
         RadioGroup rg = findViewById(R.id.radioGroup);
         rg.setOnCheckedChangeListener((group, checkedId) -> {
