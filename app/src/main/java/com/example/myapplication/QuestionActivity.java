@@ -5,6 +5,7 @@ import static com.example.myapplication.classes.DatabaseManager.largestId;
 import static com.example.myapplication.classes.DatabaseManager.loadQuestion;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -35,7 +36,7 @@ public class QuestionActivity extends AppCompatActivity {
     private static ArrayList<String> answers;
     private static String checkedAnswer;
     private static DatabaseManager manager;
-    private static Random rnd;
+    private static Button button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +51,9 @@ public class QuestionActivity extends AppCompatActivity {
         radioButtons = new RadioButton[]{findViewById(R.id.radioButton), findViewById(R.id.radioButton2), findViewById(R.id.radioButton3), findViewById(R.id.radioButton4)};
         answers = new ArrayList<>();
         manager = new DatabaseManager();
+        DatabaseManager.rnd = new Random();
         getLargestIdAndGenerateRandomQuestion();
-        
+        button = (Button)findViewById(R.id.button5);
         correntAnswers = 0;
         RadioGroup rg = findViewById(R.id.radioGroup);
         rg.setOnCheckedChangeListener((group, checkedId) -> {
@@ -60,6 +62,14 @@ public class QuestionActivity extends AppCompatActivity {
             if (radioButton != null) {
                 checkedAnswer = radioButton.getText().toString();
             }
+        });
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                nextQuestion();
+            }
+
         });
     }
     public static void setQuestion(Question question)
@@ -89,4 +99,5 @@ public class QuestionActivity extends AppCompatActivity {
         }
         getLargestIdAndGenerateRandomQuestion();
     }
+
 }

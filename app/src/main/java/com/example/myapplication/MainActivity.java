@@ -30,12 +30,21 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button button = findViewById(R.id.triviaButton);
+        Button createQuestion = findViewById(R.id.createButton);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Logic to switch to another activity
                 Intent intent = new Intent(MainActivity.this, QuestionActivity.class);
+                startActivity(intent);
+            }
+        });
+        createQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Logic to switch to another activity
+                Intent intent = new Intent(MainActivity.this, questionCreate.class);
                 startActivity(intent);
             }
         });

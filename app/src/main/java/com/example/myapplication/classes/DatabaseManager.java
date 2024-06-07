@@ -17,7 +17,7 @@ import java.util.Random;
 public class DatabaseManager {
     private static  FirebaseFirestore db;
     static public String largestId;
-    private static Random rnd;
+    public static Random rnd;
     public static void loadQuestion(String id)
     {
         db.collection("Question")
@@ -72,13 +72,13 @@ public class DatabaseManager {
                                 }
                                 Log.d("nave", document.getId() + " => " + document.getData());
                             }
+                            uploadQuestion(question);
                         } else {
                             Log.w("nave", "Error getting documents.", task.getException());
                         }
                     }
 
                 });
-        uploadQuestion(question);
     }
 
     public static int getLargestIdAndGenerateRandomQuestion() {
@@ -92,9 +92,10 @@ public class DatabaseManager {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 if(Integer.parseInt(document.getId()) > Integer.parseInt(largestId)) {
                                     largestId = document.getId();
-                                    loadQuestion(Integer.toString(rnd.nextInt(Integer.parseInt(largestId))));
                                 }
+                                loadQuestion(Integer.toString(rnd.nextInt(Integer.parseInt(largestId))));
                                 Log.d("nave", document.getId() + " => " + document.getData());
+
                             }
                         } else {
                             Log.w("nave", "Error getting documents.", task.getException());
