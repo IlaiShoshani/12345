@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +18,7 @@ import com.example.myapplication.classes.QuestionFetcher;
 
 import java.io.IOException;
 
-public class questionCreate extends AppCompatActivity {
+public class questionCreate extends AppCompatActivity implements QuestionFetcher.QuestionFetchListener {
 
     private Button submit;
     private Button random;
@@ -28,6 +29,7 @@ public class questionCreate extends AppCompatActivity {
     private EditText answer3;
     private EditText answer4;
     private DatabaseManager manager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,19 +70,28 @@ public class questionCreate extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                try {
 
-                    Question question1 = QuestionFetcher.fetchQuestion();
-                    question.setText(question1.getQuestion());
-                    answer1.setText(question1.getAnswer1());
-                    answer2.setText(question1.getAnswer2());
-                    answer3.setText(question1.getAnswer3());
-                    answer4.setText(question1.getAnswer4());
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                QuestionFetcher.fetchQuestion(new QuestionFetcher.QuestionFetchListener() {
+                    @Override
+                    public void onQuestionFetched(Question question1) {
+                        question.setText(question1.getQuestion());
+                        answer1.setText(question1.getAnswer1());
+                        answer2.setText(question1.getAnswer2());
+                        answer3.setText(question1.getAnswer3());
+                        answer4.setText(question1.getAnswer4());
+                    }
+                });
+
             }
-
         });
+    }
+
+    @Override
+    public void onQuestionFetched(Question question1) {
+        question.setText(question1.getQuestion());
+        answer1.setText(question1.getAnswer1());
+        answer2.setText(question1.getAnswer2());
+        answer3.setText(question1.getAnswer3());
+        answer4.setText(question1.getAnswer4());
     }
 }

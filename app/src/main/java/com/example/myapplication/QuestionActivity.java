@@ -37,6 +37,7 @@ public class QuestionActivity extends AppCompatActivity {
     private static String checkedAnswer;
     private static DatabaseManager manager;
     private static Button button;
+    private static TextView score;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +49,7 @@ public class QuestionActivity extends AppCompatActivity {
             return insets;
         });
         QuestionText = findViewById(R.id.questionText);
+        score = findViewById(R.id.score);
         radioButtons = new RadioButton[]{findViewById(R.id.radioButton), findViewById(R.id.radioButton2), findViewById(R.id.radioButton3), findViewById(R.id.radioButton4)};
         answers = new ArrayList<>();
         manager = new DatabaseManager();
@@ -96,6 +98,7 @@ public class QuestionActivity extends AppCompatActivity {
         if (Objects.equals(checkedAnswer, lastQuestion.getAnswer1()))
         {
             correntAnswers++;
+            score.setText(Integer.toString(correntAnswers*100));
         }
         getLargestIdAndGenerateRandomQuestion();
     }
